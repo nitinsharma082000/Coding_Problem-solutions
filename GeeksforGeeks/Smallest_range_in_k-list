@@ -1,0 +1,74 @@
+class smallestRangeFromKLists
+{
+    
+   public static class Range
+    {
+        int i;
+        int j;
+        int value;
+        Range(int i,int j,int value)
+        {
+            this.i=i;
+            this.j=j;
+            this.value=value;
+        }
+    }
+	static int[] findSmallestRange(int[][] arr,int n,int k)
+	{
+	    
+	    int ar[]=new int[2];
+	    int ansi=0,ansj=0;
+	   int ans=Integer.MAX_VALUE;
+	   
+	   Range fetch,fetch1;
+	   PriorityQueue<Range> max=new PriorityQueue<Range>((f,g)->g.value-f.value);
+	   PriorityQueue<Range> min=new PriorityQueue<Range>((f,g)->f.value-g.value);
+	   for(int i=0;i<k;i++)
+	   {
+	   max.add(new Range(i,0,arr[i][0]));
+	   
+	   min.add(new Range(i,0,arr[i][0]));
+	   }
+	    
+	     while(true)
+	     {
+	   fetch=min.peek();
+	   fetch1=max.peek();
+	   int a=fetch1.value;
+	   int b=fetch.value;
+	   int j=fetch.j;
+	   int i=fetch.i;
+	  
+	   if(Math.abs(a-b)<ans)
+	   {
+	        ansi=b;
+	        ansj=a;
+	       ans=Math.abs(a-b);
+	   }
+	   if(j==n-1)
+	    break;
+	   if(a==b)
+	   {
+	    max.poll();
+	    min.poll();
+	    max.add(new Range(fetch1.i,fetch1.j+1,arr[fetch1.i][fetch1.j+1]));
+	   min.add(new Range(i,j+1,arr[i][j+1]));
+	   	   max.add(new Range(i,j+1,arr[i][j+1]));
+	   }
+	   else
+	   {
+	   max.remove(fetch);
+	   min.poll();
+	   max.add(new Range(i,j+1,arr[i][j+1]));
+	   min.add(new Range(i,j+1,arr[i][j+1]));
+	   }
+	  
+	      fetch=min.peek();
+	         
+	     
+	   }
+	  ar[0]=ansi;
+	  ar[1]=ansj;
+	  return ar;
+	}
+}
