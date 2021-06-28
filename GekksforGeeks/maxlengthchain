@@ -1,0 +1,36 @@
+
+class GfG
+{
+    
+   
+    int maxChainLength(Pair arr[], int n)
+    {
+        int count=1,i;
+        PriorityQueue<Pair> pq=new PriorityQueue<Pair>( (p1, p2) -> p1.y - p2.y);
+      for(i=0;i<n;i++)
+      {
+          pq.add(arr[i]);
+      }
+     Pair a=pq.poll();
+     for(i=1;i<n;i++)
+     {
+         if(a.y<pq.peek().x)
+         {
+             count++;
+             a=pq.poll();
+         }
+         else
+         {
+             pq.poll();
+         }
+         
+     }
+     return count;
+  
+  
+  
+        
+     
+       
+    }
+}
