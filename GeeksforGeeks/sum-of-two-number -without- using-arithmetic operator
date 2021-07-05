@@ -1,0 +1,11 @@
+class Solution
+{
+    int sum(int a , int b)
+    {
+        int summ,carry;
+        if(b==0)
+         return a;
+        
+        return sum(a^b,(a&b)<<1);
+    }
+}
