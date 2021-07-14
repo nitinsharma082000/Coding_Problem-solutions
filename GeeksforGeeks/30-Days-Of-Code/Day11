@@ -1,0 +1,126 @@
+//Secret Cipher 
+
+
+import java.io.*;
+import java.util.*;
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int tc = Integer.parseInt(br.readLine());
+		while (tc--> 0) {
+			String s = br.readLine().trim();
+			Solution sln = new Solution();
+			String ans = sln.compress(s);
+			System.out.println(ans);
+		}
+	}
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+class Solution {
+    
+    
+    void calculate_prefixes(String s,int a[])
+    {
+        a[0]=0;
+        for(int i=1;i<s.length();i++)
+        {
+            int series=a[i-1];
+            while(series>0)
+            {
+                
+                
+                if(s.charAt(series)==s.charAt(i))
+                 {
+                     a[i]=series+1;
+                     break;
+                     
+                 }
+                 series=a[series-1];
+            }
+            if(series==0)
+            {
+                if(s.charAt(i)==s.charAt(0))
+                 a[i]=1;
+                else
+                 a[i]=0;
+            }
+        }
+       
+    }
+    
+    
+	public String compress(String s) {
+		
+		
+		    
+		    boolean check;
+	
+		    int a[]=new int[s.length()];
+		    calculate_prefixes(s,a);
+		    
+		    Stack<Character> stk=new Stack<Character>();
+		    
+		    for(int i=s.length()-1;i>0;i--)
+		    {
+		        
+		        if(i%2==0)
+		        {
+		         stk.push(s.charAt(i));
+		         continue;
+		        }
+		        
+		        check=false;
+		        
+		        
+		        int suffix=a[i];
+		        int suflen=i+1;
+		        
+		        if(suffix*2>=suflen)
+		          if(suflen%(suflen-suffix)==0)
+		            if( (suflen/(suflen-suffix))%2==0)
+		              check=true;
+		              
+		      
+		      if(check==true)
+		      {
+		          stk.push('*');
+		          i=i/2+1;
+		          
+		      }
+		      else
+		      {
+		          stk.push(s.charAt(i));
+		      }
+		         
+		         
+		         
+		         
+		         
+		         
+		         
+		    }
+		    
+		    
+		    StringBuilder ans=new StringBuilder();
+		    ans.append(s.charAt(0));
+		    
+		    
+		    while(!stk.empty())
+		    {
+		        
+		        
+		        ans.append(stk.peek());
+		        stk.pop();
+		    }
+		    
+	return ans.toString();
+		
+	}
+}
+
+
+
