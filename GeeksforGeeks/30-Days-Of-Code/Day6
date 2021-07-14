@@ -1,0 +1,88 @@
+//Coins of Geekland
+import java.io.*;
+import java.util.*;
+
+class GFG {
+	public static void main (String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		int t = Integer.parseInt(sc.next());
+		while(t-- > 0)
+		{
+		    int n = Integer.parseInt(sc.next());
+		    int a[][] = new int[n][n];
+		    
+		    for(int i=0;i<n;i++)
+		    {
+		        for(int j=0;j<n;j++)
+		        {
+		            a[i][j] = Integer.parseInt(sc.next());
+		        }
+		    }
+		    
+		    int k = Integer.parseInt(sc.next());
+		    Solution T = new Solution();
+		    System.out.println(T.Maximum_Sum(a,n,k));
+		}
+	}
+}// } Driver Code Ends
+
+
+class Solution
+{
+    public int Maximum_Sum(int mat[][],int N,int K){
+    int row1=0,row2=K,col1=0,col2=K;
+    int res=Integer.MIN_VALUE,sum=0;
+    for(int i=0;i<K;i++)
+    {
+        for(int j=0;j<K;j++)
+        {
+            sum=sum+mat[i][j];
+            
+        }
+    }
+    
+    res=Math.max(res,sum);
+    int temp=sum;
+    
+    while(row2<=N)
+    {
+        while(col2<N)
+        {
+            
+            
+            for(int i=row1;i<row2;i++)
+            {
+                sum=sum-mat[i][col1];
+                sum=sum+mat[i][col2];
+            }
+            col1++;
+            col2++;
+            res=Math.max(res,sum);
+        }
+        col1=0;
+        col2=K;
+        if(row2==N)
+          break;
+            
+            
+       for(int i=col1;i<col2;i++)
+       {
+           temp=temp-mat[row1][i];
+           temp=temp+mat[row2][i];
+       }
+            
+        sum=temp;
+        row1++;
+        row2++;
+        res=Math.max(res,sum);
+    }
+            
+      return res;      
+            
+        
+        }
+    }
+    
+    
+    
