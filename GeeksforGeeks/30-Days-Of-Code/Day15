@@ -1,0 +1,47 @@
+//count triplet
+
+class Solve
+{
+    static int countTriplets(Node head, int x) 
+    { 
+    int i,count=0,front,last,rem;
+    
+    ArrayList<Integer> a=new ArrayList<Integer>();
+    Node ptr=head;
+    while(ptr!=null)
+    {
+    a.add(ptr.data);
+    ptr=ptr.next;
+    }
+    Collections.sort(a);
+   for(i=0;i<a.size()-2;i++)
+   {
+       
+       rem=x-a.get(i);
+       front=i+1;
+       last=a.size()-1;
+       while(front<last)
+       {
+           if((a.get(front)+a.get(last))==rem)
+           {
+               count++;
+               front++;
+               last--;
+           }
+           else if((a.get(front)+a.get(last))>rem)
+            last--;
+           else
+            front++;
+           
+       }
+
+       
+   }
+
+   return count;
+   
+   
+   
+    
+    } 
+}
