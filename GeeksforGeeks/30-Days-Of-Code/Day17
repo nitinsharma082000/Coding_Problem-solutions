@@ -1,0 +1,45 @@
+//Help classmate
+
+class Solution {
+	public static int[] help_classmate(int arr[], int n) 
+	{ 
+	  
+	  int smallest[]=new int[n];
+	  
+	    
+	 HashMap<Integer,Integer> hm=new HashMap<Integer,Integer>();
+	 Stack<Integer> stk=new Stack<Integer>();
+	 stk.push(0);
+	 for(int i=1;i<n;i++)
+	 {
+	     
+	     
+	    if(stk.empty())
+	     stk.push(i);
+	     
+	    while(stk.empty()==false && arr[stk.peek()]>arr[i])
+	      {
+	          hm.put(stk.peek(),i);
+	          stk.pop();
+	      }
+	     
+	     stk.push(i);
+	     
+	     
+	    
+	 }
+	 while(stk.empty()==false)
+	 {
+	     hm.put(stk.peek(),-1);
+	     stk.pop();
+	 }
+	 for(int i=0;i<n;i++)
+	 {
+	     if(hm.get(i)!=-1) smallest[i]=arr[hm.get(i)];
+	     else smallest[i]=-1;
+	 }
+	
+return smallest;
+	
+	} 
+}
