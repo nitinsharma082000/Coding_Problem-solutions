@@ -1,0 +1,45 @@
+//132 geeky buildings
+
+class Solution{
+    static boolean recreationalSpot(int[] arr , int n){
+        
+    int small_left[]=new int[n];
+    int num;
+    small_left[0]=arr[0];
+    for(int i=1;i<n;i++)
+    {
+        
+        small_left[i]=Math.min(arr[i],small_left[i-1]);
+        
+    }
+    
+    Stack<Integer> stk=new Stack<>();
+    for(int i=n-1;i>=0;i--)
+    {
+        num=arr[i];
+        
+        
+      
+       while(stk.empty()==false && stk.peek()<=small_left[i])
+        stk.pop();
+        
+       if(!stk.empty() && num>small_left[i] && stk.peek()<num)
+        return true;
+        
+      stk.push(num);
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+        return false;
+        
+    
+    }
+};
