@@ -1,0 +1,29 @@
+//Restrictive candy crush
+
+class Solution
+{
+    public static String reduced_String(int k, String s)
+    {
+        
+       
+       if (k==1) return "";
+    StringBuilder ans = new StringBuilder(s);
+    int count[] = new int[ans.length()]; /** for matching characters **/
+    
+    for (int i=0; i < ans.length(); i++)
+    {
+        if ( i==0 || ans.charAt(i) != ans.charAt(i-1) )
+            count[i] = 1;
+        else
+        {
+            count[i] = count[i-1] + 1;
+            if (count[i]==k) /** Found `k` consecutive identical characters **/
+            {
+                ans.delete(i-k+1,i+1); 
+                i = i-k; /** Move `k` index back **/
+            }   
+        }
+    }
+    return ans.toString();
+    }
+}
