@@ -1,0 +1,52 @@
+// Leetcode PROBLEM NO. 39 
+// BACKTRACKING SOLUTION 
+class Solution {
+
+
+    static void solve(int index,int arr[],int target,List<List<Integer>> ans,List<Integer> ds)   // this function returns will  append all the possible solutions into the list of list datastructure named as " ans" . 
+    {
+        
+   if(index==arr.length || arr[i]>target) return ;
+   if(target==0)
+   {
+       ans.add(new ArrayList<>(ds));
+       return ;
+   }
+   else
+   {
+       ds.add(arr[i]);
+       solve(index+1,arr,target-arr[i],ans,ds);
+       ds.remove(ds.size()-1);
+       for(int i=index+1;i<arr.length;i++)
+       {
+           if(arr[i]!=arr[i-1])
+           {
+               ds.add(arr[i]);
+               solve(index+1,arr,target-arr[i],ans,ds);
+               ds.remove(ds.size()-1);
+           }
+       }
+       
+       
+       
+       
+   }
+        
+        
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        
+        
+     List<List<Integer>> result=new ArrayList<>();
+       
+        
+        solve(0,candidates,target,result,new ArrayList<Integer>());
+        return result;
+        
+        
+        
+        
+        
+        
+    }
+}
